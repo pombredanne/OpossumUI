@@ -180,17 +180,36 @@ export function TopBar(): ReactElement {
     window.ipcRenderer.invoke(IpcChannel.ExportFile, args);
   }
 
-  function getDetailedBomExportListener(): void {
+  function getCompactBomExportListener(): void {
     window.ipcRenderer.invoke(IpcChannel.ExportFile, {
       type: ExportType.DetailedBom,
       bomAttributions: getBomAttributions(manualData),
     });
   }
 
-  function getCompactBomExportListener(): void {
+  function getDetailedBomExportListener(): void {
+    const followUpAttributions = manualData.attributions;
+
+    const followUpAttributionsWithResources =
+      getAttributionsWithAllChildResourcesWithoutFolders(
+        followUpAttributions,
+        manualData.attributionsToResources,
+        manualData.resourcesToAttributions,
+        resources || {},
+        getAttributionBreakpointCheck(attributionBreakpoints),
+        getFileWithChildrenCheck(filesWithChildren)
+      );
+    const followUpAttributionsWithFormattedResources =
+      removeSlashesFromFilesWithChildren(
+        followUpAttributionsWithResources,
+        getFileWithChildrenCheck(filesWithChildren)
+      );
+
+    console.log(followUpAttributionsWithFormattedResources);
+
     window.ipcRenderer.invoke(IpcChannel.ExportFile, {
-      type: ExportType.CompactBom,
-      bomAttributions: getBomAttributions(manualData),
+      type: ExportType.DetailedBom,
+      bomAttributions: followUpAttributionsWithFormattedResources,
     });
   }
 

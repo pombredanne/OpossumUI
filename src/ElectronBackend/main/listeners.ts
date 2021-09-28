@@ -292,6 +292,7 @@ async function createDetailedBom(
     'copyright',
     'licenseName',
     'licenseText',
+    'resources',
   ];
 
   await writeCsvToFile(

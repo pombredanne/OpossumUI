@@ -412,26 +412,28 @@ describe('getExportBomListener', () => {
       detailedBomFilePath: '/somefile.csv',
     });
 
-    const attributions: Attributions = {
+    const followUpAttributionsWithResources: AttributionsWithResources = {
       key1: {
         followUp: undefined,
         licenseText: 'license text',
         firstParty: true,
+        resources: ['/'],
       },
       key2: {
         packageName: 'license text',
+        resources: ['/a', '/b'],
       },
     };
 
     await listener(IpcChannel.ExportFile, {
       type: ExportType.DetailedBom,
-      bomAttributions: attributions,
+      bomAttributions: followUpAttributionsWithResources,
     });
 
     expect(writeCsvToFile).toHaveBeenNthCalledWith(
       1,
       '/somefile.csv',
-      attributions,
+      followUpAttributionsWithResources,
       [
         'packageName',
         'packageVersion',
