@@ -30,6 +30,7 @@ import { openFileDialog } from './openFileDialog';
 
 import fs from 'fs';
 import { writeSpdxFile } from '../output/writeSpdxFile';
+import { mockOpenFileDialog } from '../../integration-tests/mocks/mockOpenFileDialog';
 
 export function getSaveFileListener(
   webContents: WebContents
@@ -78,7 +79,9 @@ export function getOpenFileListener(
   return createListenerCallbackWithErrorHandling(
     mainWindow.webContents,
     async () => {
-      const filePaths = openFileDialog();
+      const filePaths = process.env.RUNNING_IN_SPECTRON
+        ? mockOpenFileDialog() // mock for e2e testing
+        : openFileDialog();
       if (!filePaths || filePaths.length < 1) {
         return;
       }
@@ -108,13 +111,14 @@ export async function openFile(
   mainWindow: BrowserWindow,
   filePath: string
 ): Promise<void> {
-  const loadingWindow = await openLoadingWindow(mainWindow);
+  // TODO add loading window back in
+  // const loadingWindow = await openLoadingWindow(mainWindow);
 
   try {
     await loadJsonFromFilePath(mainWindow.webContents, filePath);
     setTitle(mainWindow, filePath);
   } finally {
-    loadingWindow.close();
+    // loadingWindow.close();
   }
 }
 
