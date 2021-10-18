@@ -48,5 +48,6 @@ jobs:
       - run: yarn lint-check
       - run: yarn compile-all
       - run: yarn test
+      - run: yarn integration-test
 
       - run: yarn ${{ matrix.SHIP }}

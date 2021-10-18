@@ -17,7 +17,8 @@ describe('Initial tests', () => {
 
   afterEach(() => {
     if (app && app.isRunning()) {
-      return app.stop();
+      app.stop();
+      app.mainProcess.abort();
     }
   });
 
@@ -34,7 +35,6 @@ describe('Initial tests', () => {
   });
 
   it('should find view buttons', async () => {
-    // @ts-ignore
     const { getByText } = setupBrowser(app.client);
 
     // eslint-disable-next-line testing-library/no-await-sync-query
