@@ -6,11 +6,13 @@
 import { Application } from 'spectron';
 import path from 'path';
 
-export const INTEGRATION_TEST_TIMEOUT = 20000;
+export const INTEGRATION_TEST_TIMEOUT = 35000;
 
-export function getApp(): Application {
+export function getApp(commandLineArg?: string): Application {
+  const app = 'build/ElectronBackend/app.js';
+
   return new Application({
-    args: ['build/ElectronBackend/app.js'],
+    args: commandLineArg ? [app, commandLineArg] : [app],
     path: path.join(__dirname, '../../..', 'node_modules', '.bin', 'electron'),
     startTimeout: 30000,
     waitTimeout: 30000,

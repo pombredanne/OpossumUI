@@ -34,7 +34,6 @@ describe('Initial tests', () => {
   });
 
   it('should find view buttons', async () => {
-    // @ts-ignore
     const { getByText } = setupBrowser(app.client);
 
     // eslint-disable-next-line testing-library/no-await-sync-query
@@ -46,7 +45,6 @@ describe('Initial tests', () => {
   });
 
   it('should open file', async () => {
-    // @ts-ignore
     const { getByLabelText, getByText } = setupBrowser(app.client);
 
     // eslint-disable-next-line testing-library/no-await-sync-query
