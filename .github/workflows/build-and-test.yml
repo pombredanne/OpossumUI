@@ -30,6 +30,11 @@ jobs:
       - name: Increase watchers
         run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 
+      - uses: nanasess/setup-chromedriver@master
+      - run: |
+          export DISPLAY=:99
+          chromedriver --url-base=/wd/hub
+
       - name: Install Node.js, NPM and Yarn
         uses: actions/setup-node@v1
         with:
