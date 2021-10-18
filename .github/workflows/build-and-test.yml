@@ -45,9 +45,9 @@ jobs:
             ${{ matrix.os }}-yarn-opossumUI
 
       - run: yarn install --network-timeout 560000
-      - run: yarn lint-check
+      # - run: yarn lint-check
       - run: yarn compile-all
-      - run: yarn test
+      # - run: yarn test
       - run: yarn integration-test
 
       - run: yarn ${{ matrix.SHIP }}
