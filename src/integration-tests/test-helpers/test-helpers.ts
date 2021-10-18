@@ -6,7 +6,7 @@
 import { Application } from 'spectron';
 import path from 'path';
 
-export const INTEGRATION_TEST_TIMEOUT = 20000;
+export const INTEGRATION_TEST_TIMEOUT = 200000;
 
 export function getApp(): Application {
   return new Application({
